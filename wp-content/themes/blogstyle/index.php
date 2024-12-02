@@ -1,27 +1,30 @@
+
+
+<?php
+// Custom Query to Retrieve Slider Items
+$slider_query = new WP_Query(array(
+    'post_type' => 'slider',
+    'posts_per_page' => -1, // Retrieve all sliders
+    'orderby' => 'date',
+    'order' => 'ASC',
+));
+
+if ($slider_query->have_posts()) : ?>
+    <div class="top-slider">
+      <?php while ($slider_query->have_posts()) : $slider_query->the_post(); ?>
+          <div class="slide-content js-slider">
+            <?php the_content(); ?>
+          </div>
+        <?php endwhile; ?>
+    </div>
+    <?php wp_reset_postdata(); ?>
+<?php endif; ?>
+
 <?php get_header(); ?>
-<section class="trending">
-  <div class="js-slider">
-    
-  </div>
-</section>
 <section class="blog">
   <div class="inner">
     <ul class="blog-list">
-      <li class="blog-item">
-        <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-          <div class="img-wrap">
-            <img alt="" class="image" src="<?php echo get_template_directory_uri(); ?>/assets/images/image1.webp">
-          </div>
-          <div class="content">
-            <div class="post-meta">
-              <span class="category">Business / Travel</span>
-              <span class="date">July 2, 2020</span>
-            </div>
-            <h3 class="title">Your most unhappy customers are your greatest source of learning.</h3>
-            <p class="des">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-          </div>
-        </a>
-      </li>
+      <?php include 'post-item.php' ?>
     </ul>
   </div>
 </section>

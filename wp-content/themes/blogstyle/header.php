@@ -24,16 +24,16 @@
       <div class="header-wrap">
       <?php if ( is_home() || is_front_page() ) : ?>
         <h1 class="header_logo">
-          <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
+          <!-- <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
             Lanase
-          </a>
+          </a> -->
         </h1>
       <?php else : ?>
-        <p class="header_logo">
+        <!-- <p class="header_logo">
           <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
             Lanase
           </a>
-        </p>
+        </p> -->
       <?php endif; ?>
 
       <ul class="site-menu">
@@ -56,7 +56,6 @@
   </header>
 <main class="main">
 
-</main>
 
 
 </body>

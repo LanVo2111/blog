@@ -157,14 +157,118 @@ if ( ! function_exists( 'blogstyle_format_binding' ) ) :
 	}
 endif;
 
-function load_stylesheets()
-{
-  wp_register_style( 'Font_Awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css' );
-  wp_enqueue_style('Font_Awesome');
-  wp_register_script( 'jQuery', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/js/all.min.js', null, null, true );
-  wp_enqueue_script('jQuery');
+// function load_stylesheets(){
+//   wp_register_style( 'Font_Awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css' );
+//   wp_enqueue_style('Font_Awesome');
+//   wp_register_script( 'jQuery', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/js/all.min.js', null, null, true );
+//   wp_enqueue_script('jQuery');
 
+// }
+// add_action( 'wp_enqueue_scripts',  'load_stylesheets');
+
+function create_slider_post_type() {
+	$labels = array(
+			'name'                  => _x('Sliders', 'Post type general name', 'textdomain'),
+			'singular_name'         => _x('Slider', 'Post type singular name', 'textdomain'),
+			'menu_name'             => _x('Sliders', 'Admin Menu text', 'textdomain'),
+			'name_admin_bar'        => _x('Slider', 'Add New on Toolbar', 'textdomain'),
+			'add_new'               => __('Add New', 'textdomain'),
+			'add_new_item'          => __('Add New Slider', 'textdomain'),
+			'new_item'              => __('New Slider', 'textdomain'),
+			'edit_item'             => __('Edit Slider', 'textdomain'),
+			'view_item'             => __('View Slider', 'textdomain'),
+			'all_items'             => __('All Sliders', 'textdomain'),
+			'search_items'          => __('Search Sliders', 'textdomain'),
+			'parent_item_colon'     => __('Parent Sliders:', 'textdomain'),
+			'not_found'             => __('No sliders found.', 'textdomain'),
+			'not_found_in_trash'    => __('No sliders found in Trash.', 'textdomain'),
+			'featured_image'        => _x('Slider Image', 'Overrides the “Featured Image” phrase for this post type.', 'textdomain'),
+			'set_featured_image'    => _x('Set slider image', 'Overrides the “Set featured image” phrase.', 'textdomain'),
+			'remove_featured_image' => _x('Remove slider image', 'Overrides the “Remove featured image” phrase.', 'textdomain'),
+			'use_featured_image'    => _x('Use as slider image', 'Overrides the “Use as featured image” phrase.', 'textdomain'),
+			'archives'              => _x('Slider archives', 'The post type archive label.', 'textdomain'),
+			'insert_into_item'      => _x('Insert into slider', 'Overrides the “Insert into post” phrase.', 'textdomain'),
+	);
+
+	$args = array(
+			'labels'             => $labels,
+			'public'             => true,
+			'publicly_queryable' => true,
+			'show_ui'            => true,
+			'show_in_menu'       => true,
+			'query_var'          => true,
+			'rewrite'            => array('slug' => 'slider'),
+			'capability_type'    => 'post',
+			'has_archive'        => true,
+			'hierarchical'       => false,
+			'menu_position'      => 20,
+			'menu_icon'          => 'dashicons-images-alt2', // Icon for the admin menu
+			'supports'           => array('title', 'editor', 'thumbnail', 'custom-fields'), // Fields enabled for this post type
+	);
+
+	register_post_type('slider', $args);
 }
-add_action( 'wp_enqueue_scripts',  'load_stylesheets');
+add_action('init', 'create_slider_post_type');
+
+function create_gallery_post_type() { 
+	register_post_type('gallery', 
+		array( 
+			'labels' => array( 
+					'name' => __( 'Galleries' ), 
+					'singular_name' => __( 'Gallery' ),
+					'all_items' => __( 'All Images'),
+			), 
+			'public' => true, 
+			'has_archive' => true, 
+			'supports' => array( 'title', 'editor', 'thumbnail' ), 
+			'rewrite' => array( 'slug' => 'gallery' ),
+			'rewrite' => array('slug' => 'gallery'),
+		) 
+	); 
+} 
+add_action( 'init', 'create_gallery_post_type' );
+
+function gallery_meta_box() {
+	add_meta_box(
+			'gallery_images',             // Unique ID
+			'Gallery Images',             // Box title
+			'gallery_meta_box_callback',  // Content callback
+			'gallery'                     // Post type
+	);
+}
+add_action('add_meta_boxes', 'gallery_meta_box');
+
+function gallery_meta_box_callback($post) {
+	wp_nonce_field('save_gallery_images', 'gallery_images_nonce');
+	$gallery_images = get_post_meta($post->ID, 'gallery_images', true);
+	?>
+	<input type="hidden" id="gallery_images" name="gallery_images" value="<?php echo esc_attr($gallery_images); ?>">
+	<button type="button" class="button upload-gallery-images">Upload Images</button>
+	<div id="gallery-preview">
+			<?php
+			if (!empty($gallery_images)) {
+					$images = explode(',', $gallery_images);
+					foreach ($images as $image_id) {
+							echo wp_get_attachment_image($image_id, 'thumbnail');
+					}
+			}
+			?>
+	</div>
+	<?php
+}
+
+function save_gallery_images($post_id) {
+	if (!isset($_POST['gallery_images_nonce']) || !wp_verify_nonce($_POST['gallery_images_nonce'], 'save_gallery_images')) {
+			return;
+	}
+	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+			return;
+	}
+	if (isset($_POST['gallery_images'])) {
+			update_post_meta($post_id, 'gallery_images', sanitize_text_field($_POST['gallery_images']));
+	}
+}
+add_action('save_post', 'save_gallery_images');
+
 
 
