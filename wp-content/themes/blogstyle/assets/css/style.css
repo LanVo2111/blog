@@ -1,4 +1,5 @@
 @import 'header.css';
 @import 'footer.css';
 @import 'top.css';
-
+@import 'common.css';
+@import 'post-detail.css';

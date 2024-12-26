@@ -24,7 +24,7 @@ $args = array(
                   echo $category->cat_name . ' '; 
               }?>
             </div>
-            <h3 class="title"><?php the_title(); ?></h3>
+            <h3 class="blog-item-title"><?php the_title(); ?></h3>
           </div>
         </a>
       </li>

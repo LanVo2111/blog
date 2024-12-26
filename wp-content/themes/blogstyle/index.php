@@ -1,4 +1,4 @@
-
+<?php get_header(); ?>
 
 <?php
 // Custom Query to Retrieve Slider Items
@@ -20,13 +20,22 @@ if ($slider_query->have_posts()) : ?>
     <?php wp_reset_postdata(); ?>
 <?php endif; ?>
 
-<?php get_header(); ?>
+
 <section class="blog">
   <div class="inner">
+    <h2 class="section-title">Latest Posts</h2>
     <ul class="blog-list">
       <?php include 'post-item.php' ?>
     </ul>
   </div>
 </section>
+
+<div class="banner">
+  <div class="inner">
+    <div class="banner-img">
+      <img src="<?php echo get_template_directory_uri(); ?>/assets/images/top-banner.jpg" alt="top-banner" />
+    </div>
+  </div>
+</div>
 
 <?php get_footer(); ?>

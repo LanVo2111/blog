@@ -1,25 +1,25 @@
 </main>
 <section class="instagram">
-  <?php
-  $attachments = new WP_Query(array(
-    // 'post_parent'    => $post->ID,
-    'post_type'      => 'gallery',
-    'post_mime_type' => 'image',
-    'orderby'        => 'menu_order',
-    'posts_per_page' => -1, // Retrieve all sliders
-    'order'          => 'ASC',
-));
+<!-- <?php
+	$images =& get_children( array (
+		'post_parent' => $post->ID,
+		'post_type' => 'attachment',
+		'post_mime_type' => 'image'
+	));
+ 
+	if ( empty($images) ) {
+		// no attachments here
+	} else {
+		foreach ( $images as $attachment_id => $attachment ) {
+			echo wp_get_attachment_image( $attachment_id, 'thumbnail' );
+		}
+	}
+?> -->
 
-if ($attachments) {
-    echo '<div class="gallery">';
-    foreach ($attachments as $attachment_id => $attachment) {
-        // Display each attachment image
-        echo wp_get_attachment_image(35, 'medium', false, array('class' => 'attached-gallery-item'));
-    }
-    echo '</div>';
-}
+<div class="image">
+  
+</div>
 
-  ?>
 </section>
 
 <footer class="footer">

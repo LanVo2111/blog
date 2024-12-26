@@ -1,0 +1,64 @@
+.detail-page {
+  margin: 64px 0;
+}
+.detail-page .content {
+  display: flex;
+  justify-content: space-between;
+  grid-gap: 40px;
+}
+.detail-page .title {
+  text-align: center;
+  font-family: "Cormorant Garamond";
+  color: #1b1b1b;
+  font-size: 65px;
+  line-height: 1.08em;
+  font-weight: 500;
+  letter-spacing: -.01em;
+  margin: 25px 0;
+  word-wrap: break-word;
+}
+.post-category h3 {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+.list .item {
+  text-align: center;
+  margin-bottom: 16px;
+}
+.list a {
+  color: #cfac9f;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: bold;
+}
+.post-content p {
+  font-size: 18px;
+  line-height: 1.25;
+  color: #1b1b1b;
+}
+
+ /* RELATED POST */
+.related {
+  margin: 64px 0;
+}
+
+/* TAG */
+.tag-list {
+  display: flex;
+  gap: 10px;
+}
+.tag-item {
+  font-size: 11px;
+  line-height: 1.81em;
+  font-weight: 500;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  display: inline-block;
+  margin: 0 0 10px 0;
+  position: relative;
+  vertical-align: top;
+  padding: 1px 20px;
+  border: 1px solid #cfac9f;
+  transition: all .2s ease-in-out;
+}
+
