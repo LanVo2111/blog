@@ -270,5 +270,34 @@ function save_gallery_images($post_id) {
 }
 add_action('save_post', 'save_gallery_images');
 
+function blog_by_category_shortcode($atts) {
+	$atts = shortcode_atts(array(
+			'category' => '',    // Category slug
+			'posts_per_page' => 4,
+	), $atts, 'blog_by_category');
+
+	$query = new WP_Query(array(
+			'category_name' => $atts['category'],
+			'posts_per_page' => $atts['posts_per_page'],
+	));
+
+	if ($query->have_posts()) {
+			$output = '<div class="posts-list">';
+			while ($query->have_posts()) {
+					$query->the_post();
+					$output .= '<div class="post-item">';
+					$output .= '<h2><a href="' . get_the_permalink() . '">' . get_the_title() . '</a></h2>';
+					$output .= '<p>' . get_the_excerpt() . '</p>';
+					$output .= '</div>';
+			}
+			$output .= '</div>';
+
+			wp_reset_postdata();
+			return $output;
+	} else {
+			return '<p>No posts found in this category.</p>';
+	}
+}
+add_shortcode('blog_by_category', 'blog_by_category_shortcode');
 
 

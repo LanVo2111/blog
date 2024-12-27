@@ -1,5 +1,6 @@
 .footer {
   text-align: center;
+  margin-top: 64px;
 }
 .footer a{
   color: #777;
@@ -31,4 +32,17 @@
 }
 .footer .privacy a:hover {
   color: #f79918;
+}
+
+.instagram {
+  display: flex;
+  justify-content: center;
+}
+.instagram .image {
+  max-width: 250px;
+  max-height: 250px;
+}
+.instagram img {
+  height: 100%;
+  width: 100%;
 }

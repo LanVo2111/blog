@@ -22,7 +22,7 @@
             $categories = get_categories();
             if ($categories) {
               foreach ($categories as $category) {
-                echo '<li class="item"><a href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($category->name) . '</a></li>';
+                echo '<li class="item"><a href=" http://localhost/blog/blog-by-category/?cate=' . esc_html($category->slug) . '">' . esc_html($category->name) . '</a></li>';
               }
             }
           ?>

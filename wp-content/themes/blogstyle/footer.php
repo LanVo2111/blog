@@ -1,23 +1,19 @@
 </main>
 <section class="instagram">
-<!-- <?php
-	$images =& get_children( array (
-		'post_parent' => $post->ID,
-		'post_type' => 'attachment',
-		'post_mime_type' => 'image'
-	));
- 
-	if ( empty($images) ) {
-		// no attachments here
-	} else {
-		foreach ( $images as $attachment_id => $attachment ) {
-			echo wp_get_attachment_image( $attachment_id, 'thumbnail' );
-		}
-	}
-?> -->
-
 <div class="image">
-  
+  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/instagram-1.jpg" alt="instagram-1"/>
+</div>
+<div class="image">
+  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/instagram-2.jpg" alt="instagram-2"/>
+</div>
+<div class="image">
+  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/instagram-3.jpg" alt="instagram-3"/>
+</div>
+<div class="image">
+  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/instagram-4.jpg" alt="instagram-4"/>
+</div>
+<div class="image">
+  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/instagram-5.jpg" alt="instagram-5"/>
 </div>
 
 </section>
